@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: crime-complaint-management-system
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: DB_SERVER
+        sync: false
+      - key: DB_PORT
+        value: "12893"
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: crms_db
+      - key: DB_SSL
+        value: "true"
+      - key: BASE_URL
+        sync: false

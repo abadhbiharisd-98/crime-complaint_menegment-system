@@ -1,0 +1,41 @@
+# Crime Complaints Reporting Management System - Apache Configuration
+# Render Reverse Proxy & Trailing Slash Optimization
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Strip port 10000 or any internal port from Host header if forwarded
+    RewriteCond %{HTTP_HOST} ^([^:]+):10000$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+    # Smart trailing slash for actual directories (prevents internal port 10000 exposure)
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^(.*)$ $1/ [R=301,L]
+
+    # Direct routing shortcuts for admin
+    RewriteRule ^admin/?$ admin/index.php [L]
+</IfModule>
+
+# Options and Directory security
+Options -Indexes +FollowSymLinks
+DirectoryIndex index.php index.html
+
+# Prevent access to sensitive files
+<FilesMatch "(\.(sql|env|original|bak|log)|start\.sh|Dockerfile|render\.yaml)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Security & Proxy Headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
