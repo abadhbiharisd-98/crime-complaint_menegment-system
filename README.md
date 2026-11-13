@@ -4,21 +4,33 @@ A full-featured digital crime and complaint reporting web platform. Enables citi
 
 ---
 
+## 🔐 Credentials & Access Portals (ID & Passwords)
+
+### 1. Application Login Credentials
+| Portal / Role | Username / Email | Password | Direct URL Link |
+| :--- | :--- | :--- | :--- |
+| 🛡️ **Super Administrator** | `admin` | `admin123` | [`/admin/login.php`](https://crime-complaint-management-system.onrender.com/admin/login.php) |
+| 👤 **Sample Citizen / Complainant** | `cblake@sample.com` | `admin123` | [`/index.php`](https://crime-complaint-management-system.onrender.com/index.php) |
+| ⚡ **1-Click Database Setup & Status** | *No Auth Required* | *Direct Access* | [`/db_setup.php`](https://crime-complaint-management-system.onrender.com/db_setup.php) |
+
+### 2. Aiven Cloud MySQL Database Configuration
+| Configuration Key | Value | Description |
+| :--- | :--- | :--- |
+| **DB_SERVER** | `mysql-32d19a6e-abadhbihari-33eb.f.aivencloud.com` | Aiven Cloud Hostname |
+| **DB_PORT** | `12893` | 5-Digit Custom Port |
+| **DB_USERNAME** | `avnadmin` | Master MySQL Admin User |
+| **DB_PASSWORD** | *(Stored securely in `.env` / Aiven Console)* | Aiven Service Password |
+| **DB_NAME** | `crms_db` | Dedicated Database Name |
+| **DB_SSL** | `true` | Enforced TLS/SSL Encryption |
+
+---
+
 ## 🌐 Live Application URLs
 
 - **Render Live URL:** [https://crime-complaint-management-system.onrender.com](https://crime-complaint-management-system.onrender.com)
 - **Admin Portal:** [https://crime-complaint-management-system.onrender.com/admin/login.php](https://crime-complaint-management-system.onrender.com/admin/login.php)
 - **1-Click Database Setup & Health Check:** [https://crime-complaint-management-system.onrender.com/db_setup.php](https://crime-complaint-management-system.onrender.com/db_setup.php)
 - **GitHub Repository:** [https://github.com/abadhbiharisd-98/crime-complaint_menegment-system](https://github.com/abadhbiharisd-98/crime-complaint_menegment-system)
-
----
-
-## 🔐 Credentials & Default Accounts
-
-| Role | Username / Email | Password | Access URL |
-| :--- | :--- | :--- | :--- |
-| **Super Administrator** | `admin` | `admin123` | `/admin/login.php` |
-| **Sample Complainant** | `cblake@sample.com` | `admin123` | Modal Login on Home (`/index.php`) |
 
 ---
 
@@ -35,11 +47,12 @@ A full-featured digital crime and complaint reporting web platform. Enables citi
 2. **Aiven SSL Transport:** Configured `mysqli_init()` with `MYSQLI_CLIENT_SSL` and `MYSQLI_OPT_SSL_VERIFY_SERVER_CERT=false` to support Aiven's TLS encryption enforcement.
 3. **5-Digit Custom Ports:** Support for Aiven custom ports (e.g., `12893`, `26284`).
 4. **Resilient Query Handlers:** Defensive checks (`if ($qry && $qry instanceof mysqli_result)`) to avoid fatal `fetch_array() on bool` exceptions if tables are initializing.
-5. **Render Port 10000 & Reverse Proxy Fixes:** Apache `UseCanonicalName Off`, `UseCanonicalPhysicalPort Off`, dynamic `$PORT` binding in `start.sh`, and smart port-stripping rewrite rules in `.htaccess`.
+5. **Session Header Safety:** `ob_start()` and `session_start()` placed at the very top of files before any HTML output, completely preventing "headers already sent" warnings.
+6. **Render Port 10000 & Reverse Proxy Fixes:** Apache `UseCanonicalName Off`, `UseCanonicalPhysicalPort Off`, dynamic `$PORT` binding in `start.sh`, and smart port-stripping rewrite rules in `.htaccess`.
 
 ---
 
-## ⚙️ Aiven Cloud Database Environment Variables
+## ⚙️ Aiven Cloud Database Environment Variables for Render
 
 Configure these variables in your **Render Dashboard &rarr; Environment**:
 
@@ -49,7 +62,7 @@ Configure these variables in your **Render Dashboard &rarr; Environment**:
 | `DB_SERVER` | Aiven MySQL Hostname | `mysql-32d19a6e-abadhbihari-33eb.f.aivencloud.com` |
 | `DB_PORT` | Aiven MySQL 5-digit port | `12893` |
 | `DB_USERNAME` | Aiven MySQL Username | `avnadmin` |
-| `DB_PASSWORD` | Aiven MySQL Password | `your_aiven_service_password` |
+| `DB_PASSWORD` | Aiven MySQL Password | *(Your Aiven Password)* |
 | `DB_NAME` | Dedicated Database Name | `crms_db` |
 | `DB_SSL` | Force SSL encrypted handshake | `true` |
 | `BASE_URL` | Live production URL | `https://crime-complaint-management-system.onrender.com` |
@@ -122,5 +135,6 @@ git push -u origin main
 ├── login.php, signup.php      # Complainant modal endpoints
 ├── render.yaml                # Render Infrastructure-as-Code Blueprint
 ├── start.sh                   # Dynamic PORT Apache startup script
-└── README.md                  # Project documentation & guide
+├── readme.txt                 # Quick text reference with credentials
+└── README.md                  # Project documentation & credential guide
 ```

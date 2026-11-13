@@ -1,24 +1,27 @@
-first download ( Crime_Complaint_Management_System )
+========================================================================
+CRIME COMPLAINTS REPORTING MANAGEMENT SYSTEM (CRMS)
+========================================================================
 
-1.XAMPP
+--- 🔐 ADMIN & USER LOGIN CREDENTIALS ---
+1. Super Admin:
+   - Username: admin
+   - Password: admin123
+   - Access URL: /admin/login.php
 
-2."TEXT EDITOR" NOTEPAD++ 
+2. Sample Complainant:
+   - Email: cblake@sample.com
+   - Password: admin123
+   - Access: Modal login on Home page
 
-3"Crime_Complaint_Management_System"
+--- 🗄️ AIVEN CLOUD MYSQL DATABASE CONFIGURATION ---
+- Host: mysql-32d19a6e-abadhbihari-33eb.f.aivencloud.com
+- Port: 12893
+- User: avnadmin
+- Password: [Refer to your .env file in project root]
+- Database: crms_db
+- SSL: true
 
-4. Download the zip file/ download winrar
-
-5. Extract the file and copy "Crime_Complaint_Management_System" folder
-
-6.Paste inside root directory/ where you install xammp local disk C: drive D: drive E: paste: (for xampp/htdocs, 
-
-7. Open PHPMyAdmin (http://localhost/phpmyadmin)
-
-8. Create a database with name crms_db
-
-6. Import crms_db_db.sql file(given inside the zip package in SQL file folder)
-
-7.Run the script http://localhost/Crime_Complaint_Management_System
-
-Username: admin
-Password: admin123
+--- 🌐 DEPLOYMENT & REPO ---
+- GitHub: https://github.com/abadhbiharisd-98/crime-complaint_menegment-system
+- Render Setup Tool: /db_setup.php
+========================================================================
