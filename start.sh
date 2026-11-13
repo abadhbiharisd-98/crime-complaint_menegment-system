@@ -44,3 +44,4 @@ apache2ctl -t || true
 
 # Run Apache in foreground
 exec apache2-foreground
+

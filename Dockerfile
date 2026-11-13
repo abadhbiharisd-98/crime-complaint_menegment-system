@@ -49,3 +49,4 @@ EXPOSE 10000 80
 
 # Execute custom startup script
 CMD ["/usr/local/bin/start.sh"]
+
