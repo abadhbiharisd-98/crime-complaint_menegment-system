@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-	
 <?php 
+ob_start();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,12 +8,13 @@ if(!isset($_SESSION['login_id'])) {
     exit;
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title><?php echo isset($_SESSION['system']['name']) ? htmlspecialchars($_SESSION['system']['name']) : 'Crime Complaints Management System' ?> - Admin</title>
- 	
 
 <?php
  include('./header.php'); 

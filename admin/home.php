@@ -41,7 +41,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo "Welcome back ". $_SESSION['login_name']."!"  ?>
+                    <?php echo "Welcome back " . (isset($_SESSION['login_name']) ? htmlspecialchars($_SESSION['login_name']) : 'Admin') . "!" ?>
                     <hr>
                 </div>
             </div>      			

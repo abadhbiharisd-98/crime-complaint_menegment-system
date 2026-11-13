@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <div class="container-fluid">
 	<form action="" id="complaint-frm">
 		<input type="hidden" name="id" value="">

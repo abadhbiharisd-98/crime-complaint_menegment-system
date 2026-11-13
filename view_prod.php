@@ -1,6 +1,8 @@
 <?php include 'admin/db_connect.php' ?>
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if(isset($_GET['id'])){
 $qry = $conn->query("SELECT * FROM products where id= ".$_GET['id']);
 foreach($qry->fetch_array() as $k => $val){

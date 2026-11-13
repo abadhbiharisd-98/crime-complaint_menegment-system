@@ -9,6 +9,10 @@ if (function_exists('mysqli_report')) {
     mysqli_report(MYSQLI_REPORT_OFF);
 }
 
+// Suppress non-fatal notices and deprecations in production
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
+ini_set('display_errors', 0);
+
 // Function to load .env file if present in project root
 if (!function_exists('crms_load_env')) {
     function crms_load_env($path) {
@@ -111,4 +115,3 @@ if (!$connected) {
 
 // Backward-compatible variable aliases
 $con = $conn;
-?>

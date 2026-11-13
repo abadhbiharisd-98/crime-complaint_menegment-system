@@ -1,41 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-    <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    include('admin/db_connect.php');
-    ob_start();
-    if (isset($conn) && $conn instanceof mysqli && !$conn->connect_error) {
-        $res = $conn->query("SELECT * FROM system_settings LIMIT 1");
-        if ($res && $res instanceof mysqli_result && $res->num_rows > 0) {
-            $query = $res->fetch_array();
-            if (is_array($query)) {
-                foreach ($query as $key => $value) {
-                    if (!is_numeric($key))
-                        $_SESSION['system'][$key] = $value;
-                }
+<?php
+ob_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include('admin/db_connect.php');
+if (isset($conn) && $conn instanceof mysqli && !$conn->connect_error) {
+    $res = $conn->query("SELECT * FROM system_settings LIMIT 1");
+    if ($res && $res instanceof mysqli_result && $res->num_rows > 0) {
+        $query = $res->fetch_array();
+        if (is_array($query)) {
+            foreach ($query as $key => $value) {
+                if (!is_numeric($key))
+                    $_SESSION['system'][$key] = $value;
             }
         }
     }
-    if (!isset($_SESSION['system']['name']) || empty($_SESSION['system']['name'])) {
-        $_SESSION['system']['name'] = "Crime/Complaints Reporting Management System";
-    }
-    if (!isset($_SESSION['system']['cover_img'])) {
-        $_SESSION['system']['cover_img'] = "";
-    }
-    if (!isset($_SESSION['system']['about_content'])) {
-        $_SESSION['system']['about_content'] = "";
-    }
-    if (!isset($_SESSION['system']['contact'])) {
-        $_SESSION['system']['contact'] = "+1 800-555-CRMS";
-    }
-    if (!isset($_SESSION['system']['email'])) {
-        $_SESSION['system']['email'] = "contact@crms-portal.org";
-    }
-    ob_end_flush();
-    include('header.php');
-    ?>
+}
+if (!isset($_SESSION['system']['name']) || empty($_SESSION['system']['name'])) {
+    $_SESSION['system']['name'] = "Crime/Complaints Reporting Management System";
+}
+if (!isset($_SESSION['system']['cover_img'])) {
+    $_SESSION['system']['cover_img'] = "";
+}
+if (!isset($_SESSION['system']['about_content'])) {
+    $_SESSION['system']['about_content'] = "";
+}
+if (!isset($_SESSION['system']['contact'])) {
+    $_SESSION['system']['contact'] = "+1 800-555-CRMS";
+}
+if (!isset($_SESSION['system']['email'])) {
+    $_SESSION['system']['email'] = "contact@crms-portal.org";
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <?php include('header.php'); ?>
 
     <style>
       .bg-dark {

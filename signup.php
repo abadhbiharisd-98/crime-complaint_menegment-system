@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <?php include('admin/db_connect.php'); ?>
 <?php 
 if(isset($_SESSION['login_id'])){

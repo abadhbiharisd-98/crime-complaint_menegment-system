@@ -20,6 +20,11 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Enable Apache modules: rewrite, headers
 RUN a2enmod rewrite headers
 
+# Configure PHP output buffering to prevent headers already sent warnings
+RUN echo "output_buffering = 4096" > /usr/local/etc/php/conf.d/output-buffering.ini \
+    && echo "display_errors = Off" >> /usr/local/etc/php/conf.d/output-buffering.ini \
+    && echo "log_errors = On" >> /usr/local/etc/php/conf.d/output-buffering.ini
+
 # Reverse proxy configurations: prevent internal port leaking in redirects
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && echo "UseCanonicalName Off" >> /etc/apache2/apache2.conf \

@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php 
+ob_start();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if(isset($_SESSION['login_id'])) {
+    header("location:index.php?page=home");
+    exit;
+}
 include('./db_connect.php');
-ob_start();
 if (isset($conn) && $conn instanceof mysqli && !$conn->connect_error) {
     $res = $conn->query("SELECT * FROM system_settings LIMIT 1");
     if ($res && $res instanceof mysqli_result && $res->num_rows > 0) {
@@ -21,8 +23,9 @@ if (isset($conn) && $conn instanceof mysqli && !$conn->connect_error) {
 if (!isset($_SESSION['system']['name']) || empty($_SESSION['system']['name'])) {
     $_SESSION['system']['name'] = "Crime/Complaints Reporting Management System";
 }
-ob_end_flush();
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -31,10 +34,6 @@ ob_end_flush();
  	
 
 <?php include('./header.php'); ?>
-<?php 
-if(isset($_SESSION['login_id']))
-header("location:index.php?page=home");
-?>
 
 </head>
 <style>
